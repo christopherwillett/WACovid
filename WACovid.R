@@ -1,5 +1,5 @@
 #Author: Christopher Willett
-#Date of Completion: May 27, 2020
+#Date of Completion: May 28, 2020
 #Purpose: To explore some data relating to the Covid-19 outbreak in Washington state.
 #Notes: This is my first addition to github. The script produces three basic plots.
 
