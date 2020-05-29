@@ -66,14 +66,16 @@ h %>% ggplot(aes(x=reorder(County,-dh_ratio),y=dh_ratio))+geom_bar(stat="identit
 #Is the d/h ratio normally distributed? Asotin County is a clear outlier, 
 #so let's clean that off and plot a historgram. :
 
-filter(h,County!="Asotin County") %>% ggplot(aes(dh_ratio))+geom_histogram(binwidth=0.1)+
+h <- filter(h,County!="Asotin County")
+
+h %>% ggplot(aes(dh_ratio))+geom_histogram(binwidth=0.1)+
   xlab("Death to Hospitalization Ratio")+ggtitle("Histogram of D/H Ratio Across WA Counties")+
   theme_few()
 
 #This is approximately normal, but with Whatcom County a very clear outlier as well.
 #So, let's create a qqplot to see.
 
-filter(h,County!="Asotin County") %>% ggplot(aes(sample=dh_ratio))+stat_qq()+
+h %>% ggplot(aes(sample=dh_ratio))+stat_qq()+
   stat_qq_line()+ggtitle("A Quantile-Quantile Plot for d/h Ratio Across WA Counties")+
   theme_few()
 
@@ -81,7 +83,6 @@ filter(h,County!="Asotin County") %>% ggplot(aes(sample=dh_ratio))+stat_qq()+
 #Let's see how far out.
 
 #Let's pull out Asotin County and calculate z-scores.
-h <- filter(h,County!="Asotin County")
 avg <- mean(h$dh_ratio)
 s <- sd(h$dh_ratio)
 h <- mutate(h,z_score = (dh_ratio-avg)/s)
